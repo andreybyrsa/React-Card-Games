@@ -1,6 +1,7 @@
 import React from 'react';
 
 import HeaderFooterBlock from './components/HeaderFooterBlock/HeaderFooterBlock';
+import ModePage from './components/ModePage/ModePage';
 
 import './App.scss';
 
@@ -11,7 +12,7 @@ function App() {
       <div className="wrapper-page__container">
 
         <HeaderFooterBlock>
-          <div></div>
+          <ModePage />
         </HeaderFooterBlock>
 
       </div>

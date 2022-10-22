@@ -4,19 +4,19 @@ import PropTypes from 'prop-types';
 import './HeaderFooterBlock.scss';
 
 const modes = [
-  'BlackJack 21', 'Baccarat',
+  'BlackJack', 'Baccarat',
 ];
 
 function HeaderFooterBlock({
   children,
 }) {
-  const [currentMode, setCurrentMode] = useState('BlackJack 21');
+  const [currentMode, setCurrentMode] = useState('Speed BlackJack');
 
   const getCurrentMode = (mode) => {
-    if (mode === currentMode) {
+    if (('Speed ' + mode) === currentMode) {
       return;
     }
-    setCurrentMode(modes.filter(str => str === mode).join(''));
+    setCurrentMode('Speed ' + modes.filter(str => str === mode).join(''));
   }
 
   return (

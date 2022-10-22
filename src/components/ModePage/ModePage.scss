@@ -1,0 +1,64 @@
+.mode-border-wrapper {
+  background-color: transparent;
+  border: 3px solid rgba(192, 192, 192, 0.5);
+  border-radius: 8px;
+}
+
+.mode-block {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__container {
+    padding: 20px 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__game-content {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+  }
+
+  &__game-result {
+    margin: 50px 0;
+    color: #e6e6e6;
+    font-size: 30px;
+    font-weight: normal;
+  }
+
+  &__card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e6e6e6;
+    font-size: 30px;
+    font-weight: bold;
+
+    width: 80px;
+    height: 100px;
+    background-color: transparent;
+    border: 2px solid #e6e6e6;
+    border-radius: 8px;
+  }
+
+  &__button {
+    justify-content: center;
+    align-items: center;
+
+    width: 45px;
+    height: 45px;
+    background-color: transparent;
+    border: 2px solid #e6e6e6;
+    border-radius: 20px;
+  }
+
+  &__credits {
+    color: #e6e6e6;
+    font-size: 30px;
+    font-weight: normal;
+  }
+}
