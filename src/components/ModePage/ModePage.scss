@@ -15,6 +15,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    text-align: center;
   }
 
   &__game-content {
@@ -46,6 +47,7 @@
   }
 
   &__button {
+    display: flex;
     justify-content: center;
     align-items: center;
 
@@ -54,6 +56,11 @@
     background-color: transparent;
     border: 2px solid #e6e6e6;
     border-radius: 20px;
+    transition: background-color .4s;
+  }
+
+  &__button:active {
+    background-color: #6f6f6f;
   }
 
   &__credits {
