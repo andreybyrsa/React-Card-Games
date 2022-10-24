@@ -10,7 +10,7 @@ const modes = [
 function HeaderFooterBlock({
   children,
 }) {
-  const [currentMode, setCurrentMode] = useState('Speed BlackJack');
+  const [currentMode, setCurrentMode] = useState('Speed Baccarat');
 
   const getCurrentMode = (mode) => {
     if (('Speed ' + mode) === currentMode) {
@@ -32,16 +32,16 @@ function HeaderFooterBlock({
       <div className="footer-border-wrapper">
         <div className="footer-page-container">
           <button
-            onClick={() => getCurrentMode(modes[0])}
-            className="footer-page-container__button"
-          >
-            {modes[0]}
-          </button>
-          <button
             onClick={() => getCurrentMode(modes[1])}
             className="footer-page-container__button"
           >
             {modes[1]}
+          </button>
+          <button
+            onClick={() => getCurrentMode(modes[0])}
+            className="footer-page-container__button"
+          >
+            {modes[0]}
           </button>
         </div>
       </div>

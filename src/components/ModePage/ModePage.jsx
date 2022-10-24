@@ -1,95 +1,129 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
-  DollarSign,
-  Plus,
-  X,
-  ArrowDownLeft,
-  Check,
+  ChevronsUp,
+  ChevronsDown,
 } from "react-feather";
 
 import './ModePage.scss';
 
 function ModePage() {
 
+  const playerValueRef = useRef();
+  const bankirValueRef = useRef();
+
   const [textResult, setTextResult] = useState('Make the Bet and Start');
-  const [totalBet, setTotalBet] = useState(500);
+  const [bet, setBet] = useState(500);
   const [deposit, setDeposit] = useState(10000);
-  const [currentCheck, setCurrentCheck] = useState(true);
 
   const [playerValue, setPlayerValue] = useState(0);
-  const [bankerValue, setBankerValue] = useState(0);
+  const [bankirValue, setBankerValue] = useState(0);
 
   useEffect(() => {
-    if (currentCheck === false && bankerValue < 21) {
-      setBankerValue(bankerValue + Math.floor(Math.random() * 12) + 1);
-    }
-  }, [currentCheck, bankerValue])
+    bankirValueRef.current = bankirValue;
+    playerValueRef.current = playerValue;
+  }, [playerValue, bankirValue])
 
-  const addCard = () => {
-    if (currentCheck && playerValue < 21) {
-      setPlayerValue(playerValue + (Math.floor(Math.random() * 12) + 1));
-      if (playerValue > 21) {
-        setCurrentCheck(!currentCheck);
-      }
+  const getRandomPlayerValue = useCallback(() => {
+    let randomValue = Math.floor(Math.random() * 11) + 1;
+    console.log(playerValueRef.current, randomValue, 'player');
+    if (playerValueRef.current + randomValue >= 10) {
+      setPlayerValue(prev => prev + randomValue - 10);
+    } else {
+      setPlayerValue(prev => prev + randomValue);
     }
-  }
+  }, [])
 
-  const startGame = () => {
+  const getRandomBankirValue = useCallback(() => {
+    let randomValue = Math.floor(Math.random() * 11) + 1;
+    console.log(bankirValueRef.current, randomValue, 'bankir');
+    if (bankirValueRef.current + randomValue >= 10) {
+      setBankerValue(prev => prev + randomValue - 10);
+    } else {
+      setBankerValue(prev => prev + randomValue);
+    }
+  }, []);
+
+  const makeResult = useCallback((timerFunc1, timerFunc2) => {
+    clearInterval(timerFunc1);
+    clearInterval(timerFunc2);
+    if (playerValueRef.current > bankirValueRef.current) {
+      setDeposit(prev => prev + bet);
+    } else if (playerValueRef.current === bankirValueRef.current) {
+      setDeposit(prev => prev);
+    } else {
+      setDeposit(prev => prev - bet);
+    }
+  }, [])
+
+  const startGame = useCallback(()  => {
+    if (bet === 0) {
+      return 0;
+    }
+    setBankerValue(0);
+    setPlayerValue(0);
     setTextResult('');
-    document.querySelector('.mode-block__button').disabled = false;
-  }
+
+    let timer1 = setInterval(getRandomPlayerValue, 500);
+    let timer2 = setInterval(getRandomBankirValue, 700);
+
+    setTimeout(() => makeResult(timer1, timer2), 1444);
+  }, []);
+
 
   const makeBet = () => {
     if (deposit > 0) {
-      setTotalBet(totalBet + 500);
+      setBet(bet + 500);
       setDeposit(deposit - 500);
     }
-    return;
+    return 0;
   }
 
   const removeBet = () => {
     if (deposit < 10500) {
-      setTotalBet(totalBet - 500);
+      setBet(bet - 500);
       setDeposit(deposit + 500);
     }
-    return;
+    return 0;
   }
 
   return (
     <div className="mode-border-wrapper">
       <div className="mode-block">
 
-        <div className="mode-block__game-content">
-          <div className="mode-block__card">{bankerValue}</div>
+        <div className="mode-block__game-content no-padding-bottom">
+          <div className="mode-block__card">{bankirValue}</div>
         </div>
 
         <div className="mode-block__game-result">{textResult}</div>
 
-        <div className="mode-block__game-content">
+        <div className="mode-block__game-content no-padding-top">
           <div className="mode-block__card">{playerValue}</div>
         </div>
 
-        <div className="mode-block__container">
-          <button onClick={removeBet} className="mode-block__button">
-            <ArrowDownLeft size={30} color="#e6e6e6" />
-          </button>
-          <button onClick={makeBet} className="mode-block__button">
-            <DollarSign size={30} color="#e6e6e6" />
-          </button>
-          <button onClick={startGame} className="mode-block__button">
-            <Check size={30} color="#e6e6e6" />
-          </button>
-          <button className="mode-block__button">
-            <X size={30} color="#e6e6e6" />
-          </button>
-          <button onClick={() => addCard(true)} className="mode-block__button">
-            <Plus size={30} color="#e6e6e6" />
-          </button>
+        <div className="mode-block__container separate-top">
+          <button className="mode-block__button">Bankir</button>
+          <button onClick={startGame} className="mode-block__button">Player</button>
         </div>
 
-        <div className="mode-block__container">
-          <div className="mode-block__credits">Deposit: {deposit}</div>
-          <div className="mode-block__credits">Total bet: {totalBet}</div>
+        <div className="mode-block__container no-padding-top separate-bottom">
+          <div className="mode-block__credits">Deposit: {deposit}€</div>
+          <div className="mode-block__credits">
+            <span>Bet: {bet}€</span>
+            <div>
+              <ChevronsDown
+                onClick={removeBet}
+                className="mode-block__button icon"
+                size={30}
+                color="#e6e6e6"
+              />
+              <ChevronsUp
+                onClick={makeBet}
+                className="mode-block__button icon"
+                size={30}
+                color="#e6e6e6"
+              />
+            </div>
+          </div>
         </div>
 
       </div>
