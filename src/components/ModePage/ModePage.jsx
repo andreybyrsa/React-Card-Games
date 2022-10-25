@@ -10,9 +10,10 @@ function ModePage() {
 
   const playerValueRef = useRef();
   const bankirValueRef = useRef();
+  const betValue = useRef();
 
   const [textResult, setTextResult] = useState('Make the Bet and Start');
-  const [bet, setBet] = useState(500);
+  const [bet, setBet] = useState(0);
   const [deposit, setDeposit] = useState(10000);
 
   const [playerValue, setPlayerValue] = useState(0);
@@ -21,7 +22,8 @@ function ModePage() {
   useEffect(() => {
     bankirValueRef.current = bankirValue;
     playerValueRef.current = playerValue;
-  }, [playerValue, bankirValue])
+    betValue.current = bet;
+  }, [playerValue, bankirValue, betValue])
 
   const getRandomPlayerValue = useCallback(() => {
     let randomValue = Math.floor(Math.random() * 11) + 1;
@@ -47,18 +49,20 @@ function ModePage() {
     clearInterval(timerFunc1);
     clearInterval(timerFunc2);
     if (playerValueRef.current > bankirValueRef.current) {
-      setDeposit(prev => prev + bet);
+      setDeposit(prev => prev + 2 * betValue.current);
+      setBet(0);
     } else if (playerValueRef.current === bankirValueRef.current) {
-      setDeposit(prev => prev);
+      setDeposit(prev => prev + betValue.current);
+      setBet(0);
     } else {
-      setDeposit(prev => prev - bet);
+      setDeposit(prev => prev);
+      setBet(0);
     }
+    console.log(betValue.current);
+    console.log(deposit);
   }, [])
 
   const startGame = useCallback(()  => {
-    if (bet === 0) {
-      return 0;
-    }
     setBankerValue(0);
     setPlayerValue(0);
     setTextResult('');
