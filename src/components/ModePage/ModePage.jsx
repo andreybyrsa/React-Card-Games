@@ -23,7 +23,7 @@ function ModePage() {
     bankirValueRef.current = bankirValue;
     playerValueRef.current = playerValue;
     betValue.current = bet;
-  }, [playerValue, bankirValue, betValue])
+  }, [playerValue, bankirValue, bet])
 
   const getRandomPlayerValue = useCallback(() => {
     let randomValue = Math.floor(Math.random() * 11) + 1;
@@ -45,24 +45,41 @@ function ModePage() {
     }
   }, []);
 
-  const makeResult = useCallback((timerFunc1, timerFunc2) => {
+  const makeResult = useCallback((timerFunc1, timerFunc2, value) => {
     clearInterval(timerFunc1);
     clearInterval(timerFunc2);
-    if (playerValueRef.current > bankirValueRef.current) {
-      setDeposit(prev => prev + 2 * betValue.current);
-      setBet(0);
-    } else if (playerValueRef.current === bankirValueRef.current) {
-      setDeposit(prev => prev + betValue.current);
-      setBet(0);
+    if (value === 'player') {
+      if (playerValueRef.current > bankirValueRef.current) {
+        setDeposit(prev => prev + 2 * betValue.current);
+        setBet(0);
+      } else if (playerValueRef.current === bankirValueRef.current) {
+        setDeposit(prev => prev + betValue.current);
+        setBet(0);
+      } else {
+        setDeposit(prev => prev);
+        setBet(0);
+      }
     } else {
-      setDeposit(prev => prev);
-      setBet(0);
+      if (playerValueRef.current < bankirValueRef.current) {
+        setDeposit(prev => prev + 2 * betValue.current);
+        setBet(0);
+      } else if (playerValueRef.current === bankirValueRef.current) {
+        setDeposit(prev => prev + betValue.current);
+        setBet(0);
+      } else {
+        setDeposit(prev => prev);
+        setBet(0);
+      }
     }
     console.log(betValue.current);
     console.log(deposit);
   }, [])
 
-  const startGame = useCallback(()  => {
+  const startGame = useCallback((value)  => {
+    if (betValue.current === 0) {
+      setTextResult('Make the Bet and Start');
+      return 0;
+    }
     setBankerValue(0);
     setPlayerValue(0);
     setTextResult('');
@@ -70,8 +87,8 @@ function ModePage() {
     let timer1 = setInterval(getRandomPlayerValue, 500);
     let timer2 = setInterval(getRandomBankirValue, 700);
 
-    setTimeout(() => makeResult(timer1, timer2), 1444);
-  }, []);
+    setTimeout(() => makeResult(timer1, timer2, value), 1444);
+  }, [bet]);
 
 
   const makeBet = () => {
@@ -83,7 +100,7 @@ function ModePage() {
   }
 
   const removeBet = () => {
-    if (deposit < 10500) {
+    if (bet !== 0 && bet > 0) {
       setBet(bet - 500);
       setDeposit(deposit + 500);
     }
@@ -93,20 +110,21 @@ function ModePage() {
   return (
     <div className="mode-border-wrapper">
       <div className="mode-block">
-
-        <div className="mode-block__game-content no-padding-bottom">
+        <span className="mode-block__players">banker</span>
+        <div className="mode-block__game-content no-padding-bottom no-padding-top">
           <div className="mode-block__card">{bankirValue}</div>
         </div>
 
         <div className="mode-block__game-result">{textResult}</div>
 
-        <div className="mode-block__game-content no-padding-top">
+        <div className="mode-block__game-content no-padding-top no-padding-bottom">
           <div className="mode-block__card">{playerValue}</div>
         </div>
+        <span className="mode-block__players">player</span>
 
         <div className="mode-block__container separate-top">
-          <button className="mode-block__button">Bankir</button>
-          <button onClick={startGame} className="mode-block__button">Player</button>
+          <button onClick={() => startGame('banker')} className="mode-block__button">Banker</button>
+          <button onClick={() => startGame('player')} className="mode-block__button">Player</button>
         </div>
 
         <div className="mode-block__container no-padding-top separate-bottom">
