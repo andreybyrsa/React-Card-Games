@@ -2,19 +2,22 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   ChevronsUp,
   ChevronsDown,
-} from "react-feather";
+} from 'react-feather';
 
 import './ModePage.scss';
 
 const gameResults = [
-  1, 1, 2, 2, 1, 2,
+
 ];
 
 function ModePage() {
 
+  const [gameResults, setGameResults] = useState([]);
+
   const playerValueRef = useRef();
   const bankerValueRef = useRef();
   const betValue = useRef();
+  const resultsValue = useRef();
 
   const [textResult, setTextResult] = useState('Make the Bet and Start');
   const [bet, setBet] = useState(0);
@@ -27,7 +30,29 @@ function ModePage() {
     bankerValueRef.current = bankerValue;
     playerValueRef.current = playerValue;
     betValue.current = bet;
-  }, [playerValue, bankerValue, bet])
+    resultsValue.current = gameResults;
+  }, [playerValue, bankerValue, bet, gameResults])
+
+  useEffect(() => {
+    let column = 1;
+    let result = document.createElement('div');
+    result.innerHTML = '⬤';
+    result.className = (gameResults[0] === 1) ? 'circle-1' : 'circle-2';
+    console.log(resultsValue.current, 'текущая длина');
+    if (resultsValue.current.length > 1) {
+      for (let i = 1; i < resultsValue.current.length; i++) {
+        result.className = (resultsValue.current[i] === 1) ? 'circle-1' : 'circle-2';
+        if (resultsValue.current[i] === resultsValue.current[i - 1]) {
+          document.getElementById(`result-${column}`).insertAdjacentElement('beforeend', result);
+        } else {
+          column += 1;
+          document.getElementById(`result-${column}`).insertAdjacentElement('beforeend', result);
+        }
+      }
+    } else if (resultsValue.current.length === 1) {
+      document.getElementById(`result-${column}`).insertAdjacentElement('beforeend', result);
+    }
+  }, [gameResults])
 
   const getRandomPlayerValue = useCallback(() => {
     let randomValue = Math.floor(Math.random() * 11) + 1;
@@ -41,7 +66,7 @@ function ModePage() {
 
   const getRandomBankerValue = useCallback(() => {
     let randomValue = Math.floor(Math.random() * 11) + 1;
-    console.log(bankerValueRef.current, randomValue, 'bankir');
+    console.log(bankerValueRef.current, randomValue, 'banker');
     if (bankerValueRef.current + randomValue >= 10) {
       setBankerValue(prev => prev + randomValue - 10);
     } else {
@@ -56,27 +81,32 @@ function ModePage() {
       if (playerValueRef.current > bankerValueRef.current) {
         setDeposit(prev => prev + 2 * betValue.current);
         setBet(0);
+        setGameResults([...resultsValue.current, 1]);
       } else if (playerValueRef.current === bankerValueRef.current) {
         setDeposit(prev => prev + betValue.current);
         setBet(0);
       } else {
         setDeposit(prev => prev);
         setBet(0);
+        setGameResults([...resultsValue.current, 2]);
       }
     } else {
       if (playerValueRef.current < bankerValueRef.current) {
         setDeposit(prev => prev + 2 * betValue.current);
         setBet(0);
+        setGameResults([...resultsValue.current, 2]);
       } else if (playerValueRef.current === bankerValueRef.current) {
         setDeposit(prev => prev + betValue.current);
         setBet(0);
       } else {
         setDeposit(prev => prev);
         setBet(0);
+        setGameResults([...resultsValue.current, 1]);
       }
     }
     console.log(betValue.current);
     console.log(deposit);
+    console.log(resultsValue.current);
   }, [])
 
   const startGame = useCallback((value)  => {
@@ -111,9 +141,6 @@ function ModePage() {
     return 0;
   }
 
-  const generateResultsTable = () => {
-  }
-
   return (
     <div className="mode-border-wrapper">
       <div className="mode-block">
@@ -121,7 +148,6 @@ function ModePage() {
         <div className="mode-block__game-content no-padding-bottom no-padding-top">
           <div className="mode-block__card">{bankerValue}</div>
         </div>
-
         <div className="mode-block__game-result">{textResult}</div>
 
         <div className="mode-block__game-content no-padding-top no-padding-bottom">
@@ -143,29 +169,24 @@ function ModePage() {
                 onClick={removeBet}
                 className="mode-block__button icon"
                 size={30}
-                color="#e6e6e6"
+                color="#D48A2FFF"
               />
-              <ChevronsUp
-                onClick={makeBet}
-                className="mode-block__button icon"
-                size={30}
-                color="#e6e6e6"
-              />
+              <ChevronsUp onClick={makeBet} className="mode-block__button icon" size={30} color="#D48A2FFF"/>
             </div>
           </div>
         </div>
 
         <div className="mode-block__table-results">
-          <div className="mode-block__results-1 result"></div>
-          <div className="mode-block__results-2 result"></div>
-          <div className="mode-block__results-3 result"></div>
-          <div className="mode-block__results-4 result"></div>
-          <div className="mode-block__results-5 result"></div>
-          <div className="mode-block__results-6 result"></div>
-          <div className="mode-block__results-7 result"></div>
-          <div className="mode-block__results-8 result"></div>
-          <div className="mode-block__results-9 result"></div>
-          <div className="mode-block__results-10 result"></div>
+          <div id="result-1" className="mode-block__results result"></div>
+          <div id="result-2" className="mode-block__results result"></div>
+          <div id="result-3" className="mode-block__results result"></div>
+          <div id="result-4" className="mode-block__results result"></div>
+          <div id="result-5" className="mode-block__results result"></div>
+          <div id="result-6" className="mode-block__results result"></div>
+          <div id="result-7" className="mode-block__results result"></div>
+          <div id="result-8" className="mode-block__results result"></div>
+          <div id="result-9" className="mode-block__results result"></div>
+          <div id="result-10" className="mode-block__results result"></div>
         </div>
 
       </div>

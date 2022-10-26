@@ -1,6 +1,6 @@
 .mode-border-wrapper {
   background-color: transparent;
-  border: 3px solid rgb(47, 85, 212);
+  border: 3px solid rgb(212, 138, 47);
   border-radius: 8px;
 }
 
@@ -11,7 +11,7 @@
 
   &__players {
     text-align: center;
-    color: white;
+    color: #d48a2f;
     font-size: 20px;
   }
 
@@ -31,8 +31,8 @@
   }
 
   &__game-result {
-    margin: 25px 0;
-    color: #e6e6e6;
+    margin: 3px 0;
+    color: #d48a2f;
     font-size: 30px;
     font-weight: bold;
   }
@@ -41,14 +41,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #e6e6e6;
+    color: #d48a2f;
     font-size: 30px;
     font-weight: bold;
 
     width: 80px;
     height: 100px;
     background-color: transparent;
-    border: 2px solid #e6e6e6;
+    border: 2px solid #d48a2f;
     border-radius: 8px;
   }
 
@@ -60,17 +60,17 @@
     width: 120px;
     height: 40px;
     background-color: transparent;
-    border: 2px solid #2F55D4;
+    border: 2px solid #d48a2f;
     border-radius: 15px;
     transition: background-color .4s;
-    color: #e6e6e6;
+    color: #d48a2f;
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 1px;
   }
 
   &__button:active {
-    background-color: #2F55D4;
+    background-color: rgba(191, 191, 191, 0.65);
   }
 
   &__credits {
@@ -79,7 +79,7 @@
     justify-content: space-between;
     width: 50%;
     line-height: 1.2;
-    color: #e6e6e6;
+    color: #d48a2f;
     font-size: 30px;
     font-weight: bold;
   }
@@ -90,17 +90,17 @@
     justify-content: flex-start;
     padding: 0 20px;
     width: 100%;
-    height: 90px;
+    height: 150px;
   }
 
 }
 
 .separate-top {
-  border-top: 3px solid rgb(47, 85, 212);
+  border-top: 3px solid rgb(212, 138, 47);
 }
 
 .separate-bottom {
-  border-bottom: 3px solid rgb(47, 85, 212);
+  border-bottom: 3px solid rgb(212, 138, 47);
 }
 
 .no-padding-top {
@@ -115,7 +115,7 @@
   margin-bottom: 5px;
   width: 40px;
   height: 40px;
-  border: 2px solid #2f55d4;
+  border: 2px solid #d48a2f;
 }
 
 .icon:last-child {
@@ -125,4 +125,12 @@
 .result {
   flex-direction: column;
   margin-right: 5px;
+}
+
+.circle-1 {
+  color: #fcd440;
+}
+
+.circle-2 {
+  color: #d48a2f;
 }

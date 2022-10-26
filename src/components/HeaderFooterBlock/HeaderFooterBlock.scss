@@ -1,14 +1,14 @@
 .header-border-wrapper {
   margin-bottom: 10px;
   background-color: transparent;
-  border: 3px solid rgb(47, 85, 212);
+  border: 3px solid rgb(212, 138, 47);
   border-radius: 8px;
 }
 
 .header-page__title {
   padding: 8px 0;
   text-align: center;
-  color: #e6e6e6;
+  color: #d48a2f;
   font-size: 35px;
   font-weight: bolder;
 }
@@ -19,7 +19,7 @@
 
 .footer-border-wrapper {
   background-color: transparent;
-  border: 3px solid rgb(47, 85, 212);
+  border: 3px solid rgb(212, 138, 47);
   border-radius: 8px;
 }
 
@@ -32,8 +32,8 @@
   &__button {
     width: 100%;
     padding: 5px 0;
-    border-right: 3px solid rgb(47, 85, 212);
-    color: #e6e6e6;
+    border-right: 3px solid rgb(212, 138, 47);
+    color: #d48a2f;
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
@@ -41,7 +41,7 @@
   }
 
   &__button:active {
-    background-color: #2f55d4;
+    background-color: rgba(191, 191, 191, 0.65);
   }
 
   &__button:last-child {
