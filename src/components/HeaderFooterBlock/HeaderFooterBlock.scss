@@ -1,7 +1,7 @@
 .header-border-wrapper {
   margin-bottom: 10px;
   background-color: transparent;
-  border: 3px solid rgba(192, 192, 192, 0.5);
+  border: 3px solid rgb(47, 85, 212);
   border-radius: 8px;
 }
 
@@ -19,7 +19,7 @@
 
 .footer-border-wrapper {
   background-color: transparent;
-  border: 3px solid rgba(192, 192, 192, 0.5);
+  border: 3px solid rgb(47, 85, 212);
   border-radius: 8px;
 }
 
@@ -32,7 +32,7 @@
   &__button {
     width: 100%;
     padding: 5px 0;
-    border-right: 3px solid rgba(192, 192, 192, 0.5);
+    border-right: 3px solid rgb(47, 85, 212);
     color: #e6e6e6;
     font-size: 30px;
     font-weight: bold;
@@ -41,7 +41,7 @@
   }
 
   &__button:active {
-    background-color: #6f6f6f;
+    background-color: #2f55d4;
   }
 
   &__button:last-child {

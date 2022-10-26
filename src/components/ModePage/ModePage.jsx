@@ -6,10 +6,14 @@ import {
 
 import './ModePage.scss';
 
+const gameResults = [
+  1, 1, 2, 2, 1, 2,
+];
+
 function ModePage() {
 
   const playerValueRef = useRef();
-  const bankirValueRef = useRef();
+  const bankerValueRef = useRef();
   const betValue = useRef();
 
   const [textResult, setTextResult] = useState('Make the Bet and Start');
@@ -17,13 +21,13 @@ function ModePage() {
   const [deposit, setDeposit] = useState(10000);
 
   const [playerValue, setPlayerValue] = useState(0);
-  const [bankirValue, setBankerValue] = useState(0);
+  const [bankerValue, setBankerValue] = useState(0);
 
   useEffect(() => {
-    bankirValueRef.current = bankirValue;
+    bankerValueRef.current = bankerValue;
     playerValueRef.current = playerValue;
     betValue.current = bet;
-  }, [playerValue, bankirValue, bet])
+  }, [playerValue, bankerValue, bet])
 
   const getRandomPlayerValue = useCallback(() => {
     let randomValue = Math.floor(Math.random() * 11) + 1;
@@ -35,10 +39,10 @@ function ModePage() {
     }
   }, [])
 
-  const getRandomBankirValue = useCallback(() => {
+  const getRandomBankerValue = useCallback(() => {
     let randomValue = Math.floor(Math.random() * 11) + 1;
-    console.log(bankirValueRef.current, randomValue, 'bankir');
-    if (bankirValueRef.current + randomValue >= 10) {
+    console.log(bankerValueRef.current, randomValue, 'bankir');
+    if (bankerValueRef.current + randomValue >= 10) {
       setBankerValue(prev => prev + randomValue - 10);
     } else {
       setBankerValue(prev => prev + randomValue);
@@ -49,10 +53,10 @@ function ModePage() {
     clearInterval(timerFunc1);
     clearInterval(timerFunc2);
     if (value === 'player') {
-      if (playerValueRef.current > bankirValueRef.current) {
+      if (playerValueRef.current > bankerValueRef.current) {
         setDeposit(prev => prev + 2 * betValue.current);
         setBet(0);
-      } else if (playerValueRef.current === bankirValueRef.current) {
+      } else if (playerValueRef.current === bankerValueRef.current) {
         setDeposit(prev => prev + betValue.current);
         setBet(0);
       } else {
@@ -60,10 +64,10 @@ function ModePage() {
         setBet(0);
       }
     } else {
-      if (playerValueRef.current < bankirValueRef.current) {
+      if (playerValueRef.current < bankerValueRef.current) {
         setDeposit(prev => prev + 2 * betValue.current);
         setBet(0);
-      } else if (playerValueRef.current === bankirValueRef.current) {
+      } else if (playerValueRef.current === bankerValueRef.current) {
         setDeposit(prev => prev + betValue.current);
         setBet(0);
       } else {
@@ -85,7 +89,7 @@ function ModePage() {
     setTextResult('');
 
     let timer1 = setInterval(getRandomPlayerValue, 500);
-    let timer2 = setInterval(getRandomBankirValue, 700);
+    let timer2 = setInterval(getRandomBankerValue, 700);
 
     setTimeout(() => makeResult(timer1, timer2, value), 1444);
   }, [bet]);
@@ -107,12 +111,15 @@ function ModePage() {
     return 0;
   }
 
+  const generateResultsTable = () => {
+  }
+
   return (
     <div className="mode-border-wrapper">
       <div className="mode-block">
         <span className="mode-block__players">banker</span>
         <div className="mode-block__game-content no-padding-bottom no-padding-top">
-          <div className="mode-block__card">{bankirValue}</div>
+          <div className="mode-block__card">{bankerValue}</div>
         </div>
 
         <div className="mode-block__game-result">{textResult}</div>
@@ -129,8 +136,8 @@ function ModePage() {
 
         <div className="mode-block__container no-padding-top separate-bottom">
           <div className="mode-block__credits">Deposit: {deposit}€</div>
-          <div className="mode-block__credits">
-            <span>Bet: {bet}€</span>
+          <div style={{justifyContent: 'flex-end',}} className="mode-block__credits">
+            <span style={{marginRight: '8px',}}>Bet: {bet}€</span>
             <div>
               <ChevronsDown
                 onClick={removeBet}
@@ -146,6 +153,19 @@ function ModePage() {
               />
             </div>
           </div>
+        </div>
+
+        <div className="mode-block__table-results">
+          <div className="mode-block__results-1 result"></div>
+          <div className="mode-block__results-2 result"></div>
+          <div className="mode-block__results-3 result"></div>
+          <div className="mode-block__results-4 result"></div>
+          <div className="mode-block__results-5 result"></div>
+          <div className="mode-block__results-6 result"></div>
+          <div className="mode-block__results-7 result"></div>
+          <div className="mode-block__results-8 result"></div>
+          <div className="mode-block__results-9 result"></div>
+          <div className="mode-block__results-10 result"></div>
         </div>
 
       </div>
