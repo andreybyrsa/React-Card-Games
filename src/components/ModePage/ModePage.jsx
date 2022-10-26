@@ -6,10 +6,6 @@ import {
 
 import './ModePage.scss';
 
-const gameResults = [
-
-];
-
 function ModePage() {
 
   const [gameResults, setGameResults] = useState([]);
@@ -187,6 +183,16 @@ function ModePage() {
           <div id="result-8" className="mode-block__results result"></div>
           <div id="result-9" className="mode-block__results result"></div>
           <div id="result-10" className="mode-block__results result"></div>
+          <div id="result-11" className="mode-block__results result"></div>
+          <div id="result-12" className="mode-block__results result"></div>
+          <div id="result-13" className="mode-block__results result"></div>
+          <div id="result-14" className="mode-block__results result"></div>
+          <div id="result-15" className="mode-block__results result"></div>
+          <div id="result-16" className="mode-block__results result"></div>
+          <div id="result-17" className="mode-block__results result"></div>
+          <div id="result-18" className="mode-block__results result"></div>
+          <div id="result-19" className="mode-block__results result"></div>
+          <div id="result-20" className="mode-block__results result"></div>
         </div>
 
       </div>
