@@ -119,7 +119,7 @@ function ModePage() {
     }
     setBankerValue(0);
     setPlayerValue(0);
-    setTextResult('');
+    setTextResult('Process');
 
     let timer1 = setInterval(getRandomPlayerValue, 500);
     let timer2 = setInterval(getRandomBankerValue, 700);
