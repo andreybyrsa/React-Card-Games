@@ -24,10 +24,11 @@
   }
 
   &__game-content {
+    position: relative;
     padding: 20px 0;
     display: flex;
     justify-content: center;
-    width: 90%;
+    width: 315px;
   }
 
   &__game-result {
@@ -38,6 +39,7 @@
   }
 
   &__card {
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,7 +96,27 @@
     overflow-x: scroll;
     height: 120px;
   }
+}
 
+@media (max-width: 550px) {
+  .mode-block__credits:first-child{
+    width: 120px;
+  }
+  .mode-block__credits:last-child{
+    width: 120px;
+  }
+}
+
+.slider {
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  animation: slide ease-in .6s forwards;
+}
+
+@keyframes slide {
+  from {right: 0}
+  to {right: 118px}
 }
 
 .separate-top {

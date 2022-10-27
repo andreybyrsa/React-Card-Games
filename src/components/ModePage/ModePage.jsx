@@ -150,56 +150,46 @@ function ModePage() {
         <span className="mode-block__players">banker</span>
         <div className="mode-block__game-content no-padding-bottom no-padding-top">
           <div className="mode-block__card">{bankerValue}</div>
+          {/*<div className="mode-block__card slider">{bankerValue}</div>*/}
         </div>
         <div className="mode-block__game-result">{textResult}</div>
 
         <div className="mode-block__game-content no-padding-top no-padding-bottom">
           <div className="mode-block__card">{playerValue}</div>
+          {/*<div className="mode-block__card slider">{bankerValue}</div>*/}
         </div>
         <span className="mode-block__players">player</span>
 
-        <div className="mode-block__container separate-top">
-          <button onClick={() => startGame('banker')} className="mode-block__button">Banker</button>
-          <button onClick={() => startGame('player')} className="mode-block__button">Player</button>
+        <div style={{padding: '0 5px', width: '100%'}}>
+          <div className="mode-block__container separate-top">
+            <button onClick={() => startGame('banker')} className="mode-block__button">Banker</button>
+            <button onClick={() => startGame('player')} className="mode-block__button">Player</button>
+          </div>
         </div>
 
-        <div className="mode-block__container no-padding-top separate-bottom">
-          <div className="mode-block__credits">Deposit: {deposit}€</div>
-          <div style={{justifyContent: 'flex-end',}} className="mode-block__credits">
-            <span style={{marginRight: '8px',}}>Bet: {bet}€</span>
-            <div>
-              <ChevronsUp onClick={makeBet} className="mode-block__button icon" size={30} color="#D48A2FFF"/>
-              <ChevronsDown
-                onClick={removeBet}
-                className="mode-block__button icon"
-                size={30}
-                color="#D48A2FFF"
-              />
+        <div style={{padding: '0 5px', width: '100%'}}>
+          <div className="mode-block__container no-padding-top separate-bottom">
+            <div className="mode-block__credits">Deposit: {deposit}€</div>
+            <div style={{justifyContent: 'flex-end',}} className="mode-block__credits">
+              <span style={{marginRight: '8px',}}>Bet: {bet}€</span>
+              <div>
+                <ChevronsUp onClick={makeBet} className="mode-block__button icon" size={30} color="#D48A2FFF"/>
+                <ChevronsDown
+                  onClick={removeBet}
+                  className="mode-block__button icon"
+                  size={30}
+                  color="#D48A2FFF"
+                />
+              </div>
             </div>
           </div>
         </div>
 
+
         <div className="mode-block__table-results">
-          <div id="result-1" className="mode-block__results result"></div>
-          <div id="result-2" className="mode-block__results result"></div>
-          <div id="result-3" className="mode-block__results result"></div>
-          <div id="result-4" className="mode-block__results result"></div>
-          <div id="result-5" className="mode-block__results result"></div>
-          <div id="result-6" className="mode-block__results result"></div>
-          <div id="result-7" className="mode-block__results result"></div>
-          <div id="result-8" className="mode-block__results result"></div>
-          <div id="result-9" className="mode-block__results result"></div>
-          <div id="result-10" className="mode-block__results result"></div>
-          <div id="result-11" className="mode-block__results result"></div>
-          <div id="result-12" className="mode-block__results result"></div>
-          <div id="result-13" className="mode-block__results result"></div>
-          <div id="result-14" className="mode-block__results result"></div>
-          <div id="result-15" className="mode-block__results result"></div>
-          <div id="result-16" className="mode-block__results result"></div>
-          <div id="result-17" className="mode-block__results result"></div>
-          <div id="result-18" className="mode-block__results result"></div>
-          <div id="result-19" className="mode-block__results result"></div>
-          <div id="result-20" className="mode-block__results result"></div>
+          {gameResults.map((elem, index) => {
+            return <div key={index} id={`result-${index + 1}`} className="mode-block__results result"></div>
+          })}
         </div>
 
       </div>
