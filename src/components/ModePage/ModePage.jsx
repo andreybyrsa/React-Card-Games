@@ -30,28 +30,29 @@ function ModePage() {
   }, [playerValue, bankerValue, bet, gameResults])
 
   useEffect(() => {
+    const currentArray = resultsValue.current;
     let column = 1;
     let result = document.createElement('div');
     result.innerHTML = '⬤';
-    result.className = (gameResults[0] === 1) ? 'circle-1' : 'circle-2';
-    console.log(resultsValue.current, 'текущая длина');
-    if (resultsValue.current.length > 1) {
-      for (let i = 1; i < resultsValue.current.length; i++) {
-        result.className = (resultsValue.current[i] === 1) ? 'circle-1' : 'circle-2';
-        if (resultsValue.current[i] === resultsValue.current[i - 1]) {
+    result.className = (currentArray[0] === 1) ? 'circle-1' : 'circle-2';
+    console.log(currentArray, 'текущая длина');
+    if (currentArray.length > 1) {
+      for (let i = 1; i < currentArray.length; i++) {
+        result.className = (currentArray[i] === 1) ? 'circle-1' : 'circle-2';
+        if (currentArray[i] === currentArray[i - 1]) {
           document.getElementById(`result-${column}`).insertAdjacentElement('beforeend', result);
         } else {
           column += 1;
           document.getElementById(`result-${column}`).insertAdjacentElement('beforeend', result);
         }
       }
-    } else if (resultsValue.current.length === 1) {
+    } else if (currentArray.length === 1) {
       document.getElementById(`result-${column}`).insertAdjacentElement('beforeend', result);
     }
   }, [gameResults])
 
   const getRandomPlayerValue = useCallback(() => {
-    let randomValue = Math.floor(Math.random() * 11) + 1;
+    let randomValue = Math.floor(Math.random() * 10) + 1;
     console.log(playerValueRef.current, randomValue, 'player');
     if (playerValueRef.current + randomValue >= 10) {
       setPlayerValue(prev => prev + randomValue - 10);
@@ -61,7 +62,7 @@ function ModePage() {
   }, [])
 
   const getRandomBankerValue = useCallback(() => {
-    let randomValue = Math.floor(Math.random() * 11) + 1;
+    let randomValue = Math.floor(Math.random() * 10) + 1;
     console.log(bankerValueRef.current, randomValue, 'banker');
     if (bankerValueRef.current + randomValue >= 10) {
       setBankerValue(prev => prev + randomValue - 10);
@@ -78,26 +79,32 @@ function ModePage() {
         setDeposit(prev => prev + 2 * betValue.current);
         setBet(0);
         setGameResults([...resultsValue.current, 1]);
+        setTextResult('You win');
       } else if (playerValueRef.current === bankerValueRef.current) {
         setDeposit(prev => prev + betValue.current);
         setBet(0);
+        setTextResult('Tie');
       } else {
         setDeposit(prev => prev);
         setBet(0);
         setGameResults([...resultsValue.current, 2]);
+        setTextResult('Banker win');
       }
     } else {
       if (playerValueRef.current < bankerValueRef.current) {
         setDeposit(prev => prev + 2 * betValue.current);
         setBet(0);
         setGameResults([...resultsValue.current, 2]);
+        setTextResult('You win');
       } else if (playerValueRef.current === bankerValueRef.current) {
         setDeposit(prev => prev + betValue.current);
         setBet(0);
+        setTextResult('Tie');
       } else {
         setDeposit(prev => prev);
         setBet(0);
         setGameResults([...resultsValue.current, 1]);
+        setTextResult('Player win');
       }
     }
     console.log(betValue.current);
@@ -161,13 +168,13 @@ function ModePage() {
           <div style={{justifyContent: 'flex-end',}} className="mode-block__credits">
             <span style={{marginRight: '8px',}}>Bet: {bet}€</span>
             <div>
+              <ChevronsUp onClick={makeBet} className="mode-block__button icon" size={30} color="#D48A2FFF"/>
               <ChevronsDown
                 onClick={removeBet}
                 className="mode-block__button icon"
                 size={30}
                 color="#D48A2FFF"
               />
-              <ChevronsUp onClick={makeBet} className="mode-block__button icon" size={30} color="#D48A2FFF"/>
             </div>
           </div>
         </div>
