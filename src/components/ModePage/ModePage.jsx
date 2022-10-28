@@ -18,6 +18,7 @@ function ModePage() {
   const [textResult, setTextResult] = useState('Make the Bet and Start');
   const [bet, setBet] = useState(0);
   const [deposit, setDeposit] = useState(10000);
+  const [toggle, setToggle] = useState(false);
 
   const [playerValue, setPlayerValue] = useState(0);
   const [bankerValue, setBankerValue] = useState(0);
@@ -107,6 +108,7 @@ function ModePage() {
         setTextResult('Player win');
       }
     }
+    setToggle(false);
     console.log(betValue.current);
     console.log(deposit);
     console.log(resultsValue.current);
@@ -117,6 +119,7 @@ function ModePage() {
       setTextResult('Make the Bet and Start');
       return 0;
     }
+    setToggle(true);
     setBankerValue(0);
     setPlayerValue(0);
     setTextResult('Process');
@@ -150,24 +153,22 @@ function ModePage() {
         <span className="mode-block__players">banker</span>
         <div className="mode-block__game-content no-padding-bottom no-padding-top">
           <div className="mode-block__card">{bankerValue}</div>
-          {/*<div className="mode-block__card slider">{bankerValue}</div>*/}
         </div>
         <div className="mode-block__game-result">{textResult}</div>
 
         <div className="mode-block__game-content no-padding-top no-padding-bottom">
           <div className="mode-block__card">{playerValue}</div>
-          {/*<div className="mode-block__card slider">{bankerValue}</div>*/}
         </div>
         <span className="mode-block__players">player</span>
 
-        <div style={{padding: '0 5px', width: '100%'}}>
+        <div style={{padding: '0 8px', width: '100%'}}>
           <div className="mode-block__container separate-top">
-            <button onClick={() => startGame('banker')} className="mode-block__button">Banker</button>
-            <button onClick={() => startGame('player')} className="mode-block__button">Player</button>
+            <button disabled={toggle} onClick={() => startGame('banker')} className="mode-block__button">Banker</button>
+            <button disabled={toggle} onClick={() => startGame('player')} className="mode-block__button">Player</button>
           </div>
         </div>
 
-        <div style={{padding: '0 5px', width: '100%'}}>
+        <div style={{padding: '0 8px', width: '100%'}}>
           <div className="mode-block__container no-padding-top separate-bottom">
             <div className="mode-block__credits">Deposit: {deposit}€</div>
             <div style={{justifyContent: 'flex-end',}} className="mode-block__credits">

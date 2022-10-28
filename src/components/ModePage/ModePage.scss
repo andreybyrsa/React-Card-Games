@@ -16,7 +16,7 @@
   }
 
   &__container {
-    padding: 20px 15px;
+    padding: 15px 10px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -39,7 +39,7 @@
   }
 
   &__card {
-    z-index: 2;
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,7 +49,6 @@
 
     width: 80px;
     height: 100px;
-    background-color: transparent;
     border: 2px solid #d48a2f;
     border-radius: 8px;
   }
@@ -105,18 +104,6 @@
   .mode-block__credits:last-child{
     width: 120px;
   }
-}
-
-.slider {
-  z-index: 1;
-  position: absolute;
-  right: 0;
-  animation: slide ease-in .6s forwards;
-}
-
-@keyframes slide {
-  from {right: 0}
-  to {right: 118px}
 }
 
 .separate-top {
