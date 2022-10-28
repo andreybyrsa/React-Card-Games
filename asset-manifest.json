@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/React-Card-Games/static/css/main.638c829e.css",
-    "main.js": "/React-Card-Games/static/js/main.0b1df7f4.js",
+    "main.css": "/React-Card-Games/static/css/main.321d1ed6.css",
+    "main.js": "/React-Card-Games/static/js/main.8f046b87.js",
     "index.html": "/React-Card-Games/index.html",
-    "main.638c829e.css.map": "/React-Card-Games/static/css/main.638c829e.css.map",
-    "main.0b1df7f4.js.map": "/React-Card-Games/static/js/main.0b1df7f4.js.map"
+    "main.321d1ed6.css.map": "/React-Card-Games/static/css/main.321d1ed6.css.map",
+    "main.8f046b87.js.map": "/React-Card-Games/static/js/main.8f046b87.js.map"
   },
   "entrypoints": [
-    "static/css/main.638c829e.css",
-    "static/js/main.0b1df7f4.js"
+    "static/css/main.321d1ed6.css",
+    "static/js/main.8f046b87.js"
   ]
 }
