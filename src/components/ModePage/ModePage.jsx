@@ -174,13 +174,20 @@ function ModePage() {
             <div style={{justifyContent: 'flex-end',}} className="mode-block__credits">
               <span style={{marginRight: '8px',}}>Bet: {bet}€</span>
               <div>
-                <ChevronsUp onClick={makeBet} className="mode-block__button icon" size={30} color="#D48A2FFF"/>
-                <ChevronsDown
-                  onClick={removeBet}
-                  className="mode-block__button icon"
-                  size={30}
-                  color="#D48A2FFF"
-                />
+                <button disabled={toggle} onClick={makeBet}>
+                  <ChevronsUp
+                    className="mode-block__button icon"
+                    size={30}
+                    color="#D48A2FFF"
+                  />
+                </button>
+                <button disabled={toggle} onClick={removeBet}>
+                  <ChevronsDown
+                    className="mode-block__button icon"
+                    size={30}
+                    color="#D48A2FFF"
+                  />
+                </button>
               </div>
             </div>
           </div>
